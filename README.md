@@ -18,5 +18,6 @@ source devel/setup.bash
 -----
 ```
 roscore
+[new tab]
 rosrun itech_ros_calibrator apply_camera_info <camera topic> <calibration_file_name>
 ```

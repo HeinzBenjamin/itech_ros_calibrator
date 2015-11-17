@@ -28,13 +28,15 @@ int main(int argc, char **argv)
   ros::ServiceClient client = n.serviceClient<sensor_msgs::SetCameraInfo>(s);
   sensor_msgs::SetCameraInfo srv;
 
-  const std::string filename = "~/.ros/camera_info/ost.ini";
-  std::string camera_name = "/";
+  //const std::string filename = "~/.ros/camera_info/ost.ini";
+  const std::string filename = argv[2];
+  //std::string camera_name = "/";
+  std::string camera_name = argv[1];
   sensor_msgs::CameraInfo camera_info;
   camera_calibration_parsers::readCalibration(filename, camera_name, camera_info);
   if (client.call(srv))
   {
-    ROS_INFO("Calibration successfully applied. To double check, run 'rostopic echo <camera_info>' and compare the values with the values specified in you .ini file");
+    ROS_INFO("Calibration successfully applied. To double check, run 'rostopic echo <camera_info topic>' and compare the values with the values specified in you .ini file");
   }
   else
   {

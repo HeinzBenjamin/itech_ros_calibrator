@@ -1,12 +1,9 @@
 #include <ros/ros.h>
-#include <image_transport/image_transport.h>
-#include <sensor_msgs/Image.h>
 #include <sensor_msgs/CameraInfo.h>
 #include <sensor_msgs/SetCameraInfo.h>
 #include <camera_calibration_parsers/parse.h>
-#include <cstdlib>
-#include <vector>
 using namespace std;
+
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "apply_camera_info");
@@ -18,27 +15,39 @@ int main(int argc, char **argv)
 
   ros::NodeHandle n;
 
-  // restructure arguments
   std::ostringstream ossSet;
   ossSet << argv[1] << "set_camera_info";
   std::string s = ossSet.str();
+  ros::ServiceClient client = n.serviceClient<sensor_msgs::SetCameraInfo>(s);
 
-  const std::string filename = argv[2];
   std::string camera_name = argv[1];
+  std::string filename = argv[2];
+
   sensor_msgs::CameraInfo camera_info;
   camera_calibration_parsers::readCalibration(filename, camera_name, camera_info);
 
-  ros::ServiceClient client = n.serviceClient<sensor_msgs::SetCameraInfo>(s, camera_info);
   sensor_msgs::SetCameraInfo srv;
-  srv.request.camera_info.width = 10;
-  srv.request.camera_info.height = 10;
+  srv.request.camera_info = camera_info;
 
-
-
+ros::Duration timeout = ros::Duration(-1);
+if(!client.waitForExistence(timeout)){ROS_INFO("Client doesn't exists yet");}
 
   if (client.call(srv))
   {
-    ROS_INFO("Calibration successfully applied. To double check, run 'rostopic echo <camera_info topic>' and compare the values with the values specified in you .ini file");
+    if(srv.response.success)
+    {
+      std::ostringstream ossInf;
+      ossInf << srv.request.camera_info;
+      ROS_INFO("%s", ossInf.str().c_str());
+      ROS_INFO("Calibration successfully applied.");
+    }
+    else
+    {
+      std::ostringstream ossStm;
+      ossStm << srv.response.status_message;
+      ROS_INFO("%s", ossStm.str().c_str());
+      return 1;
+    }    
   }
   else
   {

@@ -6,11 +6,8 @@ project(itech_ros_calibrator)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  rospy
   std_msgs
-  tf
   sensor_msgs
-  genpy
 )
 
 ## System dependencies are found with CMake's conventions
@@ -189,6 +186,6 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-add_executable(apply_camera_info src/apply_camera_info.cpp)
-install(TARGETS apply_camera_info
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+# add_executable(apply_camera_info src/apply_camera_info.cpp)
+# install(TARGETS apply_camera_info
+#  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

@@ -2,7 +2,7 @@
 Let's you apply ROS camera calibration from custom .yaml or .ini files to your camera topic
 
 #### INSTALLATION
------
+
 ```
 cd catkin_ws/src
 git clone https://github.com/HeinzBenjamin/itech_ros_calibrator
@@ -13,15 +13,17 @@ g++ apply_camera_info.cpp -o apply_camera_info -I/opt/ros/indigo/include -L/opt/
 cd ../../..
 source devel/setup.bash
 ```
+-----
 
 #### USAGE
------
+
 ```
 rosrun itech_ros_calibrator apply_camera_info <camera topic> <calibration_file_name>
 ```
+-----
 
 #### EXAMPLE
------
+
 ```
 rosrun itech_ros_calibrator apply_camera_info /camera ~/.ros/camera_info/calibration_file.yaml
 ```

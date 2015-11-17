@@ -1,7 +1,7 @@
 # itech_ros_calibrator
 Let's you apply ROS camera calibration from custom .yaml or .ini files to your camera topic
 
-## INSTALLATION
+#### INSTALLATION
 -----
 ```
 cd catkin_ws/src
@@ -14,13 +14,13 @@ cd ../../..
 source devel/setup.bash
 ```
 
-## USAGE
+#### USAGE
 -----
 ```
 rosrun itech_ros_calibrator apply_camera_info <camera topic> <calibration_file_name>
 ```
 
-## EXAMPLE
+#### EXAMPLE
 -----
 ```
 rosrun itech_ros_calibrator apply_camera_info /camera ~/.ros/camera_info/calibration_file.yaml

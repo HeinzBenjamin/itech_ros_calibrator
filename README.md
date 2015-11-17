@@ -17,7 +17,11 @@ source devel/setup.bash
 ## USAGE
 -----
 ```
-roscore
-[new tab]
 rosrun itech_ros_calibrator apply_camera_info <camera topic> <calibration_file_name>
+```
+
+## EXAMPLE
+-----
+```
+rosrun itech_ros_calibrator apply_camera_info /camera ~/.ros/camera_info/calibration_file.yaml
 ```

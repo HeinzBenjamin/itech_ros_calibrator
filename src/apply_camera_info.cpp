@@ -20,17 +20,13 @@ int main(int argc, char **argv)
 
   // restructure arguments
   std::ostringstream ossSet;
-  ossSet << argv[1] << "/set_camera_info";
+  ossSet << argv[1] << "set_camera_info";
   std::string s = ossSet.str();
   std::ostringstream ossInfo;
-  ossInfo << argv[1] << "/camera_info";
-  std::string sI = ossInfo.str();
   ros::ServiceClient client = n.serviceClient<sensor_msgs::SetCameraInfo>(s);
   sensor_msgs::SetCameraInfo srv;
 
-  //const std::string filename = "~/.ros/camera_info/ost.ini";
   const std::string filename = argv[2];
-  //std::string camera_name = "/";
   std::string camera_name = argv[1];
   sensor_msgs::CameraInfo camera_info;
   camera_calibration_parsers::readCalibration(filename, camera_name, camera_info);

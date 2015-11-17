@@ -22,18 +22,21 @@ int main(int argc, char **argv)
   std::ostringstream ossSet;
   ossSet << argv[1] << "set_camera_info";
   std::string s = ossSet.str();
-  std::ostringstream ossInfo;
-  ros::ServiceClient client = n.serviceClient<sensor_msgs::SetCameraInfo>(s);
-  sensor_msgs::SetCameraInfo srv;
 
   const std::string filename = argv[2];
   std::string camera_name = argv[1];
   sensor_msgs::CameraInfo camera_info;
   camera_calibration_parsers::readCalibration(filename, camera_name, camera_info);
 
-  srv.
+  ros::ServiceClient client = n.serviceClient<sensor_msgs::SetCameraInfo>(s, camera_info);
+  sensor_msgs::SetCameraInfo srv;
+  srv.request.camera_info.width = 10;
+  srv.request.camera_info.height = 10;
 
-  if (client.call(srv(camera_info)))
+
+
+
+  if (client.call(srv))
   {
     ROS_INFO("Calibration successfully applied. To double check, run 'rostopic echo <camera_info topic>' and compare the values with the values specified in you .ini file");
   }

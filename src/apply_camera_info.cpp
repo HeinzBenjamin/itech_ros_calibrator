@@ -3,7 +3,7 @@
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/CameraInfo.h>
 #include <sensor_msgs/SetCameraInfo.h>
-#include <camera_calibration_parsers/parse_ini.h>
+#include <camera_calibration_parsers/parse.h>
 #include <cstdlib>
 #include <vector>
 using namespace std;
@@ -17,12 +17,21 @@ int main(int argc, char **argv)
   }
 
   ros::NodeHandle n;
-  std::ostringstream oss;
-  oss << argv[1] << "/set_camera_info";
-  std::string s = oss.str();
+
+  // restructure arguments
+  std::ostringstream ossSet;
+  ossSet << argv[1] << "/set_camera_info";
+  std::string s = ossSet.str();
+  std::ostringstream ossInfo;
+  ossInfo << argv[1] << "/camera_info";
+  std::string sI = ossInfo.str();
   ros::ServiceClient client = n.serviceClient<sensor_msgs::SetCameraInfo>(s);
   sensor_msgs::SetCameraInfo srv;
-  srv = camera_calibration_parsers::readCalibrationIni(argv[3], camera, camera_info);
+
+  const std::string filename = "~/.ros/camera_info/ost.ini";
+  std::string camera_name = "/";
+  sensor_msgs::CameraInfo camera_info;
+  camera_calibration_parsers::readCalibration(filename, camera_name, camera_info);
   if (client.call(srv))
   {
     ROS_INFO("Calibration successfully applied. To double check, run 'rostopic echo <camera_info>' and compare the values with the values specified in you .ini file");

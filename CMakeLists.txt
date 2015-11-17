@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  tf
   sensor_msgs
   genpy
 )
@@ -103,7 +104,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES icd_ros_io
+#  LIBRARIES icd_ros_calibrator
 #  CATKIN_DEPENDS roscpp rospy std_msgs tf
 #  DEPENDS system_lib
 )
@@ -120,24 +121,24 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(icd_ros_io
-#   src/${PROJECT_NAME}/icd_ros_io.cpp
+# add_library(icd_ros_calibrator
+#   src/${PROJECT_NAME}/icd_ros_calibrator.cpp
 # )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(icd_ros_io ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(icd_ros_calibrator ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-# add_executable(icd_ros_io_node src/icd_ros_io_node.cpp)
+# add_executable(icd_ros_calibrator_node src/icd_ros_calibrator_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(icd_ros_io_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(icd_ros_calibrator_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(icd_ros_io_node
+# target_link_libraries(icd_ros_calibrator_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -156,7 +157,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS icd_ros_io icd_ros_io_node
+# install(TARGETS icd_ros_calibrator icd_ros_calibrator_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -181,10 +182,13 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_icd_ros_io.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_icd_ros_calibrator.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+add_executable(apply_camera_info src/apply_camera_info.cpp)
+install(TARGETS apply_camera_info
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

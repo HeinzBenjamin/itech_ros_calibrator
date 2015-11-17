@@ -30,7 +30,10 @@ int main(int argc, char **argv)
   std::string camera_name = argv[1];
   sensor_msgs::CameraInfo camera_info;
   camera_calibration_parsers::readCalibration(filename, camera_name, camera_info);
-  if (client.call(srv))
+
+  srv.
+
+  if (client.call(srv(camera_info)))
   {
     ROS_INFO("Calibration successfully applied. To double check, run 'rostopic echo <camera_info topic>' and compare the values with the values specified in you .ini file");
   }

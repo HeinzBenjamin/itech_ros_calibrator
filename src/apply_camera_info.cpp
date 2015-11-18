@@ -29,9 +29,6 @@ int main(int argc, char **argv)
   sensor_msgs::SetCameraInfo srv;
   srv.request.camera_info = camera_info;
 
-ros::Duration timeout = ros::Duration(-1);
-if(!client.waitForExistence(timeout)){ROS_INFO("Client doesn't exists yet");}
-
   if (client.call(srv))
   {
     if(srv.response.success)

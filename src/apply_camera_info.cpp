@@ -42,13 +42,13 @@ int main(int argc, char **argv)
     {
       std::ostringstream ossStm;
       ossStm << srv.response.status_message;
-      ROS_INFO("%s", ossStm.str().c_str());
+      ROS_ERROR("%s", ossStm.str().c_str());
       return 1;
     }    
   }
   else
   {
-    ROS_ERROR("Failed to call service camera/set_camera_info");
+    ROS_ERROR("Failed to call service <camera topic>/set_camera_info");
     return 1;
   }
 

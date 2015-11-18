@@ -27,3 +27,12 @@ rosrun itech_ros_calibrator apply_camera_info <camera topic> <calibration_file_n
 ```
 rosrun itech_ros_calibrator apply_camera_info /camera ~/.ros/camera_info/calibration_file.yaml
 ```
+
+#### ADDITIONAL NOTES
+```
+when supplying the camera topic, always make sure, it ends with a '/' (e.g. '/camera/' when using ueye_cam or simply '/' when using ueye)
+when messages are being remapped via launch files (for example in some launch files of ueye), always make sure to supply the ORIGINAL <camera topic> and NOT the remapped <camera topic>
+
+Have fun
+Ben
+```
